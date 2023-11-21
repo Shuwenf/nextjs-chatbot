@@ -8,7 +8,7 @@ import { nanoid } from '@/lib/utils'
 export const runtime = 'edge'
 
 const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY
+  apiKey: process.env.PUBLIC_OPENAI_API_KEY
 })
 
 const openai = new OpenAIApi(configuration)
@@ -16,14 +16,13 @@ const openai = new OpenAIApi(configuration)
 export async function POST(req: Request) {
   const json = await req.json()
   const { messages, previewToken } = json
-  const userId = (await auth())?.user.id
-
-  if (!userId) {
+  const userEmail = (await auth())?.user.email
+  if (!userEmail) {
     return new Response('Unauthorized', {
       status: 401
     })
   }
-
+  
   if (previewToken) {
     configuration.apiKey = previewToken
   }
@@ -44,7 +43,7 @@ export async function POST(req: Request) {
       const payload = {
         id,
         title,
-        userId,
+        userEmail,
         createdAt,
         path,
         messages: [
@@ -56,7 +55,7 @@ export async function POST(req: Request) {
         ]
       }
       await kv.hmset(`chat:${id}`, payload)
-      await kv.zadd(`user:chat:${userId}`, {
+      await kv.zadd(`user:chat:${userEmail}`, {
         score: createdAt,
         member: `chat:${id}`
       })
