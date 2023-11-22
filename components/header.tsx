@@ -9,6 +9,7 @@ import { SidebarList } from '@/components/sidebar-list'
 import {
   IconNextChat,
   IconSeparator,
+  IconGoodsGPT
 } from '@/components/ui/icons'
 import { SidebarFooter } from '@/components/sidebar-footer'
 import { ThemeToggle } from '@/components/theme-toggle'
@@ -18,7 +19,7 @@ import { UserMenu } from '@/components/user-menu'
 export async function Header() {
   const session = await auth()
   return (
-    <header className="sticky top-0 z-50 flex items-center justify-between w-full h-16 px-4 border-b shrink-0 bg-gradient-to-b from-background/10 via-background/50 to-background/80 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 grid grid-cols-[minmax(0,1fr),auto,minmax(0,1fr)] items-center justify-between w-full h-16 px-4 border-b shrink-0 bg-gradient-to-b from-background/10 via-background/50 to-background/80 backdrop-blur-xl">
       <div className="flex items-center">
         {session?.user ? (
           <Sidebar>
@@ -31,22 +32,17 @@ export async function Header() {
               <ClearHistory clearChats={clearChats} />
             </SidebarFooter>
           </Sidebar>
-        ) : (
-          <Link href="/" target="_blank" rel="nofollow">
-            <IconNextChat className="w-6 h-6 mr-2 dark:hidden" inverted />
-            <IconNextChat className="hidden w-6 h-6 mr-2 dark:block" />
-          </Link>
-        )}
-        <div className="flex items-center">
+        ) : null}
+        {session?.user ? (
+          <div className="flex items-center">
           <IconSeparator className="w-6 h-6 text-muted-foreground/50" />
-          {session?.user ? (
-            <UserMenu user={session.user} />
-          ) : (
-            <Button variant="link" asChild className="-ml-2">
-              <Link href="/sign-in?callbackUrl=/">Login</Link>
-            </Button>
-          )}
-        </div>
+          <UserMenu user={session.user} />
+          </div>
+        ) : null}
+      </div>
+      <div className="flex items-center flex-grow space-x-2">
+        <IconGoodsGPT />
+        <span className="hidden ml-2 md:flex">GoodsGPT</span>
       </div>
     </header>
   )
