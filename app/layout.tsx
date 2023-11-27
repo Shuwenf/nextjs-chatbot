@@ -32,7 +32,7 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head />
+      <meta name="google-adsense-account" content="ca-pub-6053895444427762"/>      
       <body
         className={cn(
           'font-sans antialiased',
