@@ -33,6 +33,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" suppressHydrationWarning>
       <meta name="google-adsense-account" content="ca-pub-6053895444427762"/>      
+      <meta name='impact-site-verification' defaultValue='d246b9f6-0290-457b-b91a-5758e1d63ecc'/>
       <body
         className={cn(
           'font-sans antialiased',
