@@ -34,6 +34,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html lang="en" suppressHydrationWarning>
       <meta name="google-adsense-account" content="ca-pub-6053895444427762"/>      
       <meta name='impact-site-verification' content='d246b9f6-0290-457b-b91a-5758e1d63ecc'/>
+      <meta name="monetag" content="7aa5db555c1ce4734b319b471630aef7"/>
       <body
         className={cn(
           'font-sans antialiased',
