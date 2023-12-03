@@ -4,6 +4,8 @@
 import { Message } from 'ai'
 import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
+import React, { useEffect } from 'react'
+import Script from 'next/script'
 
 import { cn } from '@/lib/utils'
 import { CodeBlock } from '@/components/ui/codeblock'
@@ -15,7 +17,24 @@ export interface ChatMessageProps {
   message: Message
 }
 
+declare global {
+  interface Window {
+    adsbygoogle: { [key: string]: unknown }[]
+  }
+}
 export function ChatMessage({ message, ...props }: ChatMessageProps) {
+  // useEffect(() => {
+  //   if (message.role !== 'user') {
+  //     try {
+  //       window.adsbygoogle = window.adsbygoogle || []
+  //       window.adsbygoogle.push({})
+  //       console.log('loading ads')
+  //     } catch (err) {
+  //       console.error('AdSense script init error', err)
+  //     }
+  //   }
+  // }, [message.role]) // Ensure this runs only when message.role changes
+
   return (
     <div
       className={cn('group relative mb-4 flex items-start md:-ml-12')}
@@ -32,6 +51,24 @@ export function ChatMessage({ message, ...props }: ChatMessageProps) {
         {message.role === 'user' ? <IconUser /> : <IconGoodsGPT />}
       </div>
       <div className="flex-1 px-1 ml-4 space-y-2 overflow-hidden">
+        {message.role === 'user' ? null : (
+          <>
+            <Script
+              async
+              src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6053895444427762"
+              // crossOrigin="anonymous"
+            />
+
+            {/*uncomment when ready to show ads  <ins
+              className="adsbygoogle"
+              style={{ display: 'block', textAlign: 'center' }}
+              data-ad-layout="in-article"
+              data-ad-format="fluid"
+              data-ad-client="ca-pub-6053895444427762"
+              data-ad-slot="2694311050"
+            ></ins> */}
+          </>
+        )}
         <MemoizedReactMarkdown
           className="prose break-words dark:prose-invert prose-p:leading-relaxed prose-pre:p-0"
           remarkPlugins={[remarkGfm, remarkMath]}
