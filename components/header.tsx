@@ -44,7 +44,6 @@ export async function Header() {
         <IconGoodsGPT />
         <span className="hidden ml-2 md:flex">GoodsGPT</span>
       </div>
-      <a href="https://sovrn.co/1d9bxm2" target="_blank">| Support us! |</a>
     </header>
   )
 }

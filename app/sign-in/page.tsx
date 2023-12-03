@@ -13,6 +13,7 @@ export default async function SignInPage() {
     <LoginButton />
     <div style={{ width: '20px' }}></div>
     <GoogleLoginButton />
+    <p>Impact-Site-Verification: d246b9f6-0290-457b-b91a-5758e1d63ecc</p>
     </div>
   )
 }
